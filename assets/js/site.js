@@ -1,5 +1,5 @@
 /* Tropical Aire — site behaviour. No secrets live here: the GA4 Measurement ID is a public identifier,
-   and form submissions are handled server-side by Netlify Forms (spam filtering + honeypot). */
+   and form submissions go to the /api/lead serverless function, where delivery keys live in Vercel env vars. */
 (function () {
   'use strict';
   var CONFIG = {
@@ -233,7 +233,7 @@
       if ((hp && hp.value) || Date.now() - started < 2500) { location.href = '/thank-you/'; return; }
       var btn = $('button[type=submit]', form); if (btn) { btn.disabled = true; btn.dataset.t = btn.textContent; btn.textContent = 'Sending…'; }
       var body = new URLSearchParams(new FormData(form)).toString();
-      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body })
+      fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' }, body: body })
         .then(function (r) { if (!r.ok) throw new Error(r.status); track('generate_lead', { form: form.getAttribute('name') }); location.href = '/thank-you/'; })
         .catch(function () {
           if (btn) { btn.disabled = false; btn.textContent = btn.dataset.t; }

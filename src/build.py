@@ -140,8 +140,7 @@ def lead_form(preselect=None, fid="hero"):
     return f'''<div class="form-card" id="estimate">
 <h2>Get a free estimate</h2>
 <p class="fine">Takes about 30 seconds. We call back fast during business hours.</p>
-<form name="estimate" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="company_website" data-lead novalidate>
-<input type="hidden" name="form-name" value="estimate">
+<form name="estimate" method="POST" action="/api/lead" data-lead novalidate>
 <input type="hidden" name="_ts" value="">
 <input type="hidden" name="page" value="">
 <p class="hp" aria-hidden="true"><label>Leave this empty <input name="company_website" tabindex="-1" autocomplete="off"></label></p>
@@ -450,7 +449,8 @@ hub = head("HVAC Services in NYC & Long Island | Tropical Aire", "Heating, cooli
 write("/services/", hub, "0.8")
 
 # ---------------- Legal ----------------
-def legal(path, title, desc, h1, body, updated=TODAY):
+LEGAL_UPDATED = "2026-11-06"  # bump when the legal text changes
+def legal(path, title, desc, h1, body, updated=LEGAL_UPDATED):
     return head(title, desc, path) + header() + f'''<main id="main" class="legal">
 <section class="hero" data-mode="cool" style="padding:56px 0"><div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page" style="margin:0;opacity:1">{h1}</span></nav><h1 style="margin:0">{h1}</h1><p class="lead" style="margin-top:12px">Last updated: {datetime.date.fromisoformat(updated).strftime("%B %-d, %Y")}</p></div></section>
 <section class="section"><div class="wrap"><div class="prose">{body}</div></div></section>
@@ -469,7 +469,7 @@ PRIV = f'''<p>Tropical Aire Mechanical &amp; Sheetmetal ("Tropical Aire", "we", 
 <h2 id="cookies">Cookies and analytics</h2>
 <p>We use essential cookies and local storage to make the site work, for example to remember your cookie choice. With your consent, we use Google Analytics 4 to understand site usage. Analytics stays off until you click "Accept all" in our cookie banner. You can change your choice at any time using the "Cookie settings" link in the footer.</p>
 <h2>Service providers</h2>
-<p>We use trusted providers to host our website and process form submissions (Netlify), measure site usage (Google Analytics, only with consent) and manage scheduling and customer accounts (Jobber). They may process your data only on our behalf.</p>
+<p>We use trusted providers to host our website and process form submissions (Vercel), deliver lead notifications to our team, measure site usage (Google Analytics, only with consent) and manage scheduling and customer accounts (Jobber). They may process your data only on our behalf.</p>
 <h2>Data retention and security</h2>
 <p>We keep your information only as long as needed for the purposes above or as required by law, and protect it with reasonable administrative, technical and physical safeguards. Our site is served only over encrypted HTTPS.</p>
 <h2>Your rights</h2>

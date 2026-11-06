@@ -1,0 +1,15 @@
+name: Site checks
+on: [push, pull_request]
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Pages are up to date with src/
+        run: python3 src/build.py && git diff --exit-code -- . ':!sitemap.xml'
+      - name: No broken internal links or missing alt text
+        run: python3 src/linkcheck.py
+      - name: Lead function parses
+        run: node --check api/lead.js
