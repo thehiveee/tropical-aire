@@ -1,0 +1,15 @@
+[build]
+  publish = "."
+
+# Secrets (e.g. CRM webhook keys, email notification settings) live in Netlify's
+# environment variables / Forms notifications UI, never in this repository or in front-end code.
+
+[[plugins]]
+  package = "netlify-plugin-checklinks"   # fails the deploy if any internal link is broken
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"  # page-speed + a11y + SEO score on every deploy
+  [plugins.inputs.thresholds]
+    performance = 0.9
+    accessibility = 0.95
+    seo = 0.95

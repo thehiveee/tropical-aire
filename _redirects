@@ -1,0 +1,27 @@
+# Force HTTPS + canonical host (Netlify also auto-redirects HTTP -> HTTPS once SSL is provisioned)
+http://tropical-aire.com/*      https://tropical-aire.com/:splat      301!
+http://www.tropical-aire.com/*  https://tropical-aire.com/:splat      301!
+https://www.tropical-aire.com/* https://tropical-aire.com/:splat      301!
+
+# Old WordPress URLs -> new pages (keeps Google rankings, fixes broken links)
+/about-us/         /#why-us        301
+/about-us          /#why-us        301
+/service-area/     /#areas         301
+/service-area      /#areas         301
+/reviews/          /#reviews       301
+/reviews           /#reviews       301
+/specials/         /#rebates       301
+/specials          /#rebates       301
+/financing/        /#financing     301
+/financing         /#financing     301
+/gallery/          /               301
+/gallery           /               301
+/contact/          /#estimate      301
+/contact           /#estimate      301
+/terms-of-use/     /terms/         301
+/terms-of-use      /terms/         301
+/services/mini-split*      /services/ductless-mini-splits-heat-pumps/  301
+/services/water-heater*    /services/water-heaters/                    301
+/services/commercial*      /services/commercial-hvac/                  301
+/wp-admin/*        /404.html       404
+/wp-login.php      /404.html       404
